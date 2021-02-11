@@ -9,6 +9,8 @@ start_time = time.time()
 buy_count = 0
 sell_count = 0
 
+# Random comment (delete at will)
+
 coin_desk_feed = feedparser.parse('https://www.coindesk.com/feed')
 
 for entry in coin_desk_feed.entries:
