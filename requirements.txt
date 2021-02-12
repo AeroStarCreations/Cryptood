@@ -1,2 +1,14 @@
+certifi==2020.12.5
+chardet==4.0.0
+click==7.1.2
+cryptocompare==0.7.4
 feedparser==6.0.2
+idna==2.10
+joblib==1.0.1
+nltk==3.5
+regex==2020.11.13
+requests==2.25.1
 sgmllib3k==1.0.0
+textblob==0.15.3
+tqdm==4.56.2
+urllib3==1.26.3
