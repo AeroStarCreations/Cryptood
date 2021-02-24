@@ -4,10 +4,11 @@ import feedparser
 import time
 import re
 import cryptocompare
+import requests
 from textblob import TextBlob
 from collections import defaultdict
 
-cryptocompare.cryptocompare._set_api_key_parameter('ea58403ce7e9d4d8f248e32ee0f39f937f96554191a83d9ab1119dc70e193a09')
+# cryptocompare.cryptocompare._set_api_key_parameter('ea58403ce7e9d4d8f248e32ee0f39f937f96554191a83d9ab1119dc70e193a09')
 
 start_time = time.time()
 buy_count = 0
@@ -53,10 +54,10 @@ sorted_desired_word_counts = sorted(desired_word_counts.items(), key=lambda item
 for word_count in sorted_desired_word_counts:
     print(word_count)
 
-print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-print('Current Prices:')
-print(f'{cryptocompare.get_price("BTC", "USD")}')
-print(f'{cryptocompare.get_price("ETH", "USD")}')
+# print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+# print('Current Prices:')
+# print(f'{cryptocompare.get_price("BTC", "USD")}')
+# print(f'{cryptocompare.get_price("ETH", "USD")}')
 
 print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 print(f'Buy count: {buy_count}')
