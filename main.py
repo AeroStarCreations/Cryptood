@@ -7,6 +7,7 @@ import cryptocompare
 import requests
 from textblob import TextBlob
 from collections import defaultdict
+from bs4 import BeautifulSoup
 
 # cryptocompare.cryptocompare._set_api_key_parameter('ea58403ce7e9d4d8f248e32ee0f39f937f96554191a83d9ab1119dc70e193a09')
 
@@ -14,14 +15,19 @@ start_time = time.time()
 buy_count = 0
 sell_count = 0
 
-coin_desk_feed = feedparser.parse('https://www.coindesk.com/feed')
+coin_telegraph_feed = feedparser.parse('https://cointelegraph.com/rss')
 word_counts = defaultdict(lambda: 0)
 desired_word_counts = defaultdict(lambda: 0)
 noun_phrase_counts = defaultdict(lambda: 0)
 desired_tags = ['JJ', 'JJR', 'JJS', 'NN', 'NNP', 'NNS', 'RB', 'RBS', 'UH', 'VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ']
 
-for entry in coin_desk_feed.entries:
-    text = entry.title + entry.summary
+def getSummaryText(entry):
+    soup = BeautifulSoup(entry.summary, 'html.parser')
+    return soup.findAll('p')[-1].text
+
+for entry in coin_telegraph_feed.entries:
+    summaryText = getSummaryText(entry)
+    text = entry.title + summaryText
     blob = TextBlob(text)
     buy_count += len(re.findall(r'buy\w*', text, flags=re.I))
     sell_count += len(re.findall(r'sell\w*', text, flags=re.I))
@@ -33,7 +39,7 @@ for entry in coin_desk_feed.entries:
         if tag[1] in desired_tags and len(tag[0]) > 2:
             desired_word_counts[tag[0].lower()] += 1
     print(f'\nTitle: {entry.title}')
-    print(f'Summary: {entry.summary}')
+    print(f'Summary: {summaryText}')
     print(f'Sentiment: {blob.sentiment}')
 
 print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
